@@ -8,20 +8,23 @@
 <body>
     <h2>Fitxategiak igo</h2>
 
-    <form action="">
+    <form action="informazioa.php" method="POST" enctype="multipart/form-data">
         <p>Izenburua:</p>
-        <input type="text" name="">
+        <input type="text" name="izenburua" required>
 
         <p>Testua</p>
-        <input type="text">
+        <input type="text" name="testua" required>
 
         <p>Mota</p>
-        <select name="Motak">
+        <select name="mota">
             <option value="Eskaintzak">Eskaintzak</option>
             <option value="Proposamenak">Proposamenak</option>
         </select>
+        <br><br>
+        <span>Irudia:</span>
+        <input type="file" name="irudia" accept="image/*">
 
-        <p>Irudia</p>
+        <button type="submit">Bidali</button>
     </form>
 </body>
 </html>
