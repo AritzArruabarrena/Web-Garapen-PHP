@@ -8,7 +8,6 @@
 </head>
 
 <body>
-    <h1>Encuesta</h1>
     <p>Etxebizitzaren prezioa igotzen jarraituko duela uste duzu?</p>
     <form action="procesar.php" method="POST">
         <input type="radio" name="respuesta" value="Bai" required>
