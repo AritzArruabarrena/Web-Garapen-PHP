@@ -15,11 +15,18 @@
     </form>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $zenbakia = intval($_POST["zenbakia"]);
-       
-      echo "Emaitza" . strrev($zenbakia);
+     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $zenbakia = strval(intval($_POST["zenbakia"])); 
+        $alderantziz = ""; 
+
+        for ($i = strlen($zenbakia) - 1; $i >= 0; $i--) {
+            $alderantziz .= $zenbakia[$i]; 
+        }
+
+        echo "<p>Emaitza: $alderantziz</p>"; 
     }
+
+    /* echo "Emaitza" . strrev($zenbakia); */
     ?>
 </body>
 
