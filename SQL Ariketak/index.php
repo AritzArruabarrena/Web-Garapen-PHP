@@ -26,6 +26,7 @@
                     <th>Extrak</th>
                     <th>Irudia</th>
                     <th>Oharrak</th>
+                    <th>Ezabatu</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,16 +57,19 @@
                         $oharrak = $row["oharrak"];
 
                         echo '<tr>
-                                <td>' . $mota . '</td>
-                                <td>' . $zonaldea . '</td>
-                                <td>' . $helbidea . '</td>
-                                <td>' . $logelak . '</td>
-                                <td>' . $prezioa . '</td>
-                                <td>' . $tamaina . '</td>
-                                <td>' . $extrak . '</td>
-                                <td>' . $irudia . '</td>
-                                <td>' . $oharrak . '</td>
-                            </tr>';
+                        <td>' . $mota . '</td>
+                        <td>' . $zonaldea . '</td>
+                        <td>' . $helbidea . '</td>
+                        <td>' . $logelak . '</td>
+                        <td>' . $prezioa . '</td>
+                        <td>' . $tamaina . '</td>
+                        <td>' . $extrak . '</td>
+                        <td>
+                            <a href="download_image.php?id=' . $row["id"] . '" class="btn btn-link">Descargar</a>
+                        </td>
+                        <td>' . $oharrak . '</td>
+                        <td><input type="checkbox"></td>
+                    </tr>';
                     }
                     $result->free();
                 }

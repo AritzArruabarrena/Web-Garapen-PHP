@@ -18,13 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $prezioa = $_POST['prezioa'] ?? 0;
     $tamaina = $_POST['tamaina'] ?? 0;
     $extrak = isset($_POST['extrak']) ? implode(',', $_POST['extrak']) : '';
-    $irudia = $_POST['irudia'] ?? '';
     $oharrak = $_POST['oharrak'] ?? '';
+
+    // Procesar imagen
+    $irudia = null; // Valor por defecto
+    if (isset($_FILES['irudia']) && $_FILES['irudia']['error'] === UPLOAD_ERR_OK) {
+        $irudia = file_get_contents($_FILES['irudia']['tmp_name']); // Leer el contenido binario de la imagen
+    }
 
     $stmt = $conn->prepare("INSERT INTO propiedades (mota, zonaldea, helbidea, logelak, prezioa, tamaina, extrak, irudia, oharrak) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssdssss", $mota, $zonaldea, $helbidea, $logelak, $prezioa, $tamaina, $extrak, $irudia, $oharrak);
 
-    if ($stmt->execute()) {
+    if ($stmt->send_long_data(7, $irudia) && $stmt->execute()) { // Enviar datos binarios al parámetro
         echo "Etxebizitza berria behar bezala gehitu da.";
     } else {
         echo "Errorea datuak gehitzerakoan: " . $stmt->error;
@@ -42,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <h1>Beste berri bat gehitu</h1>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         <label for="mota">Mota:</label>
         <select id="mota" name="mota" required>
             <option value="Pisua">Pisua</option>
@@ -89,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="checkbox" name="extrak[]" value="Garajea"> Garajea
         <br><br>
 
-        <label for="irudia">Irudiaren izena:</label>
-        <input type="text" id="irudia" name="irudia" placeholder="adibidez: irudia.jpg">
+        <label for="irudia">Irudia:</label>
+        <input type="file" id="irudia" name="irudia" accept="image/*">
         <br><br>
 
         <label for="oharrak">Oharrak:</label>
